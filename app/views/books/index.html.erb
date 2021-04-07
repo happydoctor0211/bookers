@@ -1,0 +1,57 @@
+<h1 class="heading">Books</h1>
+
+<table class="showbox">
+  <tr>
+    <th>Title</th>
+    <th>Body</th>
+    <th></th>
+  </tr>
+  
+  <% @books.each do |book| %>
+  <tr>
+    <th class="record-item"><%= book.title %></th>
+    <th class="record-item"><%= book.body %></th>
+    <th><%= link_to "Show" ,book_path(book) %> <%= link_to "Edit" ,edit_book_path(book) %> <%= link_to "Destroy" ,book_path(book),method: :delete %></th>
+  </tr>
+  <% end %>
+  
+</table>
+  
+
+
+<div class="submit">
+   
+   
+  
+   
+   <h2>New Book</h2>
+    <!--ここからエラーメッセージ-->
+   <% if @book.errors.any? %>
+    <div class="alert">
+      <div class=alerm-qat>
+      <h2><%= pluralize(@book.errors.count, "error") %> prohibited this book from being saved:</h2>
+      </div>
+      <div class="alerm-item">
+      <ul>
+        <% @book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+      </div>
+    </div>
+   <% end %>
+   <!--ここまで-->
+   <%= form_with model:@book, local:true do |f| %>
+   <p>Title</p>
+   <%= f.text_field:title %>
+
+   <p>Body</p>
+   <%= f.text_area:body %>
+
+   <div>
+   <%= f.submit'Create Book' %>
+   </div>
+
+  <% end %>
+</div>
+
